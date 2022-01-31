@@ -2,14 +2,16 @@ const {ApolloServer} = require('apollo-server');
 const {typeDefs} = require('./api/schema');
 const {resolvers} = require('./api/resolvers');
 const {client} = require('./db/db');
-const {db} = require('./db/db');
+
 const server = new ApolloServer({
     typeDefs,
     resolvers
 })
 
-server.listen().then(async ({url})=>{
+const main = async () => {
     await client.connect();
-    console.log("DB Connection is Success");
-    console.log(`server is running on ${url}`);
-})
+    const {url} = await server.listen();
+    console.log('listening on ' + url);
+}
+
+main();
