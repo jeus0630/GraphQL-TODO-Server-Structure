@@ -5,6 +5,10 @@ exports.typeDefs = gql`
         todos: [todo!]
     }
     
+    type Mutation{
+        createTodo(description: String!): [todo!]
+    }
+    
     type todo{
         description: String!
         checked: Boolean!
